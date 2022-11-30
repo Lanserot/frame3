@@ -1,0 +1,28 @@
+{
+    "name": "vova/ref",
+    "description": "C'mon, let's go",
+    "type": "project",
+    "license": "nope",
+    "autoload": {
+        "psr-4": {
+            "Core\\Route\\": "core/Route/",
+            "Core\\Tools\\": "core/Tools/",
+            "Core\\Controllers\\": "core/Controllers/",
+            "Core\\": "core/",
+            "Migrations\\migrate\\": "migrations/migrate/",
+            "Migrations\\migrate\\traits\\": "migrations/migrate/traits/",
+            "Migrations\\": "migrations/"
+        }
+    },
+    "authors": [
+        {
+            "name": "VVR"
+        }
+    ],
+    "require-dev": {
+        "phpstan/phpstan": "^1.8",
+        "phpunit/phpunit": "^9.5"
+    },
+    "require": {
+    }
+}

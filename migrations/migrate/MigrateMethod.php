@@ -13,12 +13,12 @@ class MigrateMethod
         $this->connect();
     }
 
-    public function createTable($table)
-    {   
+    public function createTable($table): void
+    {
         $this->db->query('CREATE TABLE `' . $table . '` (`id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;');
     }
 
-    public function deleteTable($table)
+    public function deleteTable($table): void
     {
         $this->db->query('DROP TABLE ' . $table);
     }

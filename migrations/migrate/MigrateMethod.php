@@ -6,6 +6,12 @@ use Migrations\migrate\traits\DbConnectTrait;
 
 class MigrateMethod
 {
+    protected string $table = '';
+    protected string $type = 'VARCHAR';
+    protected string $collumn = '';
+    protected int $long = 255;
+    protected bool $isNull = true;
+
     use DbConnectTrait;
 
     public function __construct()
@@ -21,5 +27,53 @@ class MigrateMethod
     public function deleteTable($table): void
     {
         $this->db->query('DROP TABLE ' . $table);
+    }
+
+    public function addCollumn()
+    {
+        $null = $this->isNull ? 'NULL' : 'NOT NULL';
+        $sql = 'ALTER TABLE `' . $this->table . '` ADD `' . $this->collumn . '` ' . $this->type . '(' . $this->long . ') ' . $null . ';';
+        $this->db->query($sql);
+    }
+
+    public function dropCollumn()
+    {
+        $sql = 'ALTER TABLE `' . $this->table . '` DROP `' . $this->collumn . '`;';
+        $this->db->query($sql);
+    }
+
+    public function setTable($table): self
+    {
+        $this->table = $table;
+
+        return $this;
+    }
+
+    public function setLong($long): self
+    {
+        $this->long = $long;
+
+        return $this;
+    }
+
+    public function setCollumn($collumn): self
+    {
+        $this->collumn = $collumn;
+
+        return $this;
+    }
+
+    public function setType($type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function setIsNull($isNull): self
+    {
+        $this->isNull = $isNull;
+
+        return $this;
     }
 }

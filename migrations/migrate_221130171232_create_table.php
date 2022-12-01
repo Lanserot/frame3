@@ -4,7 +4,7 @@ namespace Migrations;
 
 use Migrations\migrate\MigrateMethod;
 
-class migrate_301122171232_create_table extends MigrateMethod
+class migrate_221130171232_create_table extends MigrateMethod
 {
     public function up(): void
     {

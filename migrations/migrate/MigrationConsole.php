@@ -27,6 +27,10 @@ class MigrationConsole
     {
         $this->parseMigrateFiles();
 
+        if(!$this->isUp){
+            $this->list = array_reverse($this->list);
+        }
+
         foreach ($this->list as $file) {
             $name = str_replace('.php', '', 'Migrations\\' . $file);
 
@@ -45,6 +49,7 @@ class MigrationConsole
                 }
             } catch (PDOException $e) {
                 echo "\033[0;31m" . $e->getMessage() . "\033[40m";
+                return;
             }
         }
     }

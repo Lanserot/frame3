@@ -2,9 +2,10 @@
 
 namespace Migrations\migrate;
 
+use Migrations\migrate\interfaces\MigrationInterface;
 use Migrations\migrate\traits\DbConnectTrait;
 
-class MigrateMethod
+class MigrateMethod implements MigrationInterface
 {
     protected string $table = '';
     protected string $type = 'VARCHAR';
@@ -13,6 +14,9 @@ class MigrateMethod
     protected bool $isNull = true;
 
     use DbConnectTrait;
+
+    public function up(): void{}
+    public function down(): void{}
 
     public function __construct()
     {

@@ -11,6 +11,7 @@
             "Core\\": "core/",
             "Migrations\\migrate\\": "migrations/migrate/",
             "Migrations\\migrate\\traits\\": "migrations/migrate/traits/",
+            "Migrations\\migrate\\interfaces\\": "migrations/migrate/interfaces/",
             "Migrations\\": "migrations/"
         }
     },

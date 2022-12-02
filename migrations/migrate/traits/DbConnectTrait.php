@@ -8,11 +8,12 @@ use PDO;
 trait DbConnectTrait
 {
     public PDO $db;
+    public string $dbName = 'test';
 
     public function connect()
     {
         try {
-            $dsn = 'mysql:dbname=test;host=localhost';
+            $dsn = 'mysql:dbname=' . $this->dbName . ';host=localhost';
             $db = new PDO($dsn, 'root', '');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $db->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);

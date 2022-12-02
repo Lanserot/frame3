@@ -2,7 +2,7 @@
 
 namespace Migrations;
 
-use Migrations\migrate\MigrateMethod;
+use Migrations\migrate\core\MigrateMethod;
 
 class migrate_221130171232_create_table extends MigrateMethod
 {

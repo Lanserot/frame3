@@ -1,6 +1,6 @@
 <?php
 
-use Migrations\migrate\MigrationConsole;
+use Migrations\migrate\console\MigrationConsole;
 
 require_once __DIR__ . '/vendor/autoload.php';
 

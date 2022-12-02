@@ -9,10 +9,11 @@
             "Core\\Tools\\": "core/Tools/",
             "Core\\Controllers\\": "core/Controllers/",
             "Core\\": "core/",
+            "Migrations\\": "migrations/",
             "Migrations\\migrate\\": "migrations/migrate/",
-            "Migrations\\migrate\\traits\\": "migrations/migrate/traits/",
-            "Migrations\\migrate\\interfaces\\": "migrations/migrate/interfaces/",
-            "Migrations\\": "migrations/"
+            "Migrations\\migrate\\console\\": "migrations/migrate/console/",
+            "Migrations\\migrate\\core\\": "migrations/migrate/core/",
+            "Migrations\\migrate\\core\\traits\\": "migrations/migrate/core/traits"
         }
     },
     "authors": [

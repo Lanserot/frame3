@@ -2,7 +2,7 @@
 
 namespace Migrations;
 
-use Migrations\migrate\MigrateMethod;
+use Migrations\migrate\core\MigrateMethod;
 
 class migrate_221201201524_insert_collumn_users2 extends MigrateMethod
 {

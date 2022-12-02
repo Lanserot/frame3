@@ -9,38 +9,46 @@ trait MigrateContainerTrait
     protected string $collumn = '';
     protected int $long = 255;
     protected bool $isNull = true;
+    protected int $countGenerate = 1;
 
-    public function setTable($table): self
+    public function setTable(string $table): self
     {
         $this->table = $table;
 
         return $this;
     }
 
-    public function setLong($long): self
+    public function setLong(int $long): self
     {
         $this->long = $long;
 
         return $this;
     }
 
-    public function setCollumn($collumn): self
+    public function setCollumn(string $collumn): self
     {
         $this->collumn = $collumn;
 
         return $this;
     }
 
-    public function setType($type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function setIsNull($isNull): self
+    public function setIsNull(bool $isNull): self
     {
         $this->isNull = $isNull;
+
+        return $this;
+    }
+
+    public function setCountGenerate(int $countGenerate): self
+    {
+        $this->countGenerate = $countGenerate;
 
         return $this;
     }

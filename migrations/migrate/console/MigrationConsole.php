@@ -48,13 +48,7 @@ class MigrationConsole
 
     public function getMigrationHistory(): array
     {
-        $order = 'ASC';
-
-        if (!$this->isUp) {
-            $order = 'DESC';
-        }
-
-        $result = $this->db->query('SELECT * FROM `migrate_versions` ORDER BY version ' . $order)->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $this->db->query('SELECT * FROM `migrate_versions` ORDER BY version DESC')->fetchAll(\PDO::FETCH_ASSOC);
 
         return $result;
     }
@@ -87,7 +81,7 @@ class MigrationConsole
             $className = 'Migrations\\' . $file;
 
             if (!class_exists($className)) {
-                exit('Не найден класс миграции ' . $className);
+                exit("\033[0;31m" . 'Не найден класс миграции ' . $className . "\033[40m");
             }
 
             $class = new $className();

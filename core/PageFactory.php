@@ -3,7 +3,6 @@
 namespace Core;
 
 use Core\Route\Route;
-use Core\Tools\DebugTool;
 
 class PageFactory
 {
@@ -25,6 +24,7 @@ class PageFactory
     public function witdrawBody(): void
     {
         $prepareUrl = $this->getRoute()->getPrepareUrl();
+
         if (empty($prepareUrl)) {
             $controller = new \Core\Controllers\MainController();
             $controller->index();
@@ -32,25 +32,30 @@ class PageFactory
         }
 
         $idFound = preg_match('/^\{(.+?)\}$/', $prepareUrl) !== false;
-        
-        if($idFound){
+
+        if ($idFound) {
             $prepareUrlId = str_replace(['{', '}'], '', end(explode('/', $prepareUrl)));
             $prepareUrl = preg_replace('/\{(.+?)\}/', '{id}', $prepareUrl);
         }
 
-        if (!empty($this->getRoute()->getRouteConfig()['routes'][$prepareUrl])) {
-            $controllerName =  'Core\Controllers\\' . $this->getRoute()->getRouteConfig()['routes'][$prepareUrl];
-       
-            if (class_exists($controllerName)) {
-                $controller = new $controllerName();
-                if ($idFound) {
-                    $controller->index($prepareUrlId);
-                    return;
-                }
-                $controller->index();
-            }
-        } else {
+        if (empty($this->getRoute()->getRouteConfig()['routes'][$prepareUrl])) {
             $controller = new \Core\Controllers\Default\Error404Controller();
+            $controller->index();
+            return;
+        }
+
+        $controllerName = $this->getRoute()->getRouteConfig()['routes'][$prepareUrl];
+        $controllerPath =  'Core\Controllers\\' . $controllerName;
+
+        if (!class_exists($controllerPath)) {
+            echo $controllerName . ' not found';
+            return;
+        }
+
+        $controller = new $controllerPath();
+        if ($idFound) {
+            $controller->index($prepareUrlId);
+        } else {
             $controller->index();
         }
     }

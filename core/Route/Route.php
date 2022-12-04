@@ -40,17 +40,18 @@ class Route
 
     private function prepareUrlCheckId(array $requestUrl): string
     {
-        $preRequestUrl = $requestUrl;
-        $id = array_pop($preRequestUrl);
-        $preRequestUrl = array_values($preRequestUrl);
+        //TODO user/{id}/change not work
+        
+        $id = array_pop($requestUrl);
+        $requestUrl = array_values($requestUrl);
 
         foreach ($this->routeConfig['routes'] as $route => $val) {
             $preRoute = explode('/', $route);
             if (preg_match('/^\{(.+?)\}$/', end($preRoute))) {
                 array_pop($preRoute);
                 $preRoute = array_values($preRoute);
-                if ($preRoute == $preRequestUrl) {
-                    $route = implode('/', $preRequestUrl);
+                if ($preRoute == $requestUrl) {
+                    $route = implode('/', $requestUrl);
                     $route = $route . '/{' . $id . '}';
                     return $route;
                 }

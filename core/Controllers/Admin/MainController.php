@@ -3,9 +3,8 @@
 namespace Core\Controllers\Admin;
 
 use Core\Controllers\Default\Controller;
-use Core\Controllers\Default\ControllerInterface;
 
-class MainController extends Controller implements ControllerInterface
+class MainController extends Controller 
 {
     public function index(): void
     {

@@ -22,9 +22,7 @@
         }
     ],
     "require-dev": {
-        "phpstan/phpstan": "^1.8",
-        "phpunit/phpunit": "^9.5"
-    },
-    "require": {
+        "phpstan/phpstan": "^1.9",
+        "phpunit/phpunit": "*"
     }
 }

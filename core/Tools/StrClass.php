@@ -4,10 +4,10 @@ namespace Core\Tools;
 
 class StrClass
 {
-    public static function handleRandomStringInArray(array $data): array
+    public static function  handleRandomStringInArray(array $data): array
     {
         for ($i = 0; $i < count($data); $i++) {
-            if (strripos($data[$i], '|randString|')) {
+            if (strripos($data[$i], '|randString|') !== false) {
                 $length = rand(5, 10);
                 $string = '';
                 while (($len = strlen($string)) < $length) {

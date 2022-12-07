@@ -2,11 +2,35 @@
 
 namespace Core\Route;
 
+use Core\Tools\DebugTool;
+
 class Route
 {
-    static public function get(string $url, string $controller): void
+    private static $_instance = null;
+    private static $url = '';
+    private static $controller = '';
+    private static $attr = [];
+    private static $routeNameList = [];
+
+    public static function getInstance()
     {
+        if (self::$_instance === null) {
+            self::$_instance = new self;
+        }
+
+        return self::$_instance;
+    }
+
+    static public function route(string $route)
+    {
+        return self::$routeNameList[$route];
+    }
+
+    static public function get(string $url, string $controller): Route
+    {
+        self::$url = $url;
         $requestUrl = $_SERVER['REQUEST_URI'];
+        $attr = [];
         if ($requestUrl != '/') {
             $requestUrl = explode('/', $requestUrl);
             $urlExp = explode('/', $url);
@@ -14,6 +38,7 @@ class Route
             $requestUrl = array_filter($requestUrl, function ($k) {
                 return !empty($k);
             });
+
             $requestUrl = array_values($requestUrl);
 
             $attr = self::checkUrlAttr($urlExp, $requestUrl);
@@ -32,11 +57,19 @@ class Route
         }
 
         if ($requestUrl !== $url) {
-            return;
+            return self::getInstance();
         }
 
-        $controller = explode('@', $controller);
-        self::withdrowPage($controller, $attr);
+        self::$controller = $controller;
+        self::$attr = $attr;
+
+        return self::getInstance();
+    }
+
+    static public function name(string $name): self
+    {
+        self::$routeNameList[$name] = (self::$url != '/' ? '/' : '') . self::$url;
+        return self::getInstance();
     }
 
     static private function checkUrlAttr(array $urlMy, array $requestUrl): array
@@ -53,8 +86,11 @@ class Route
         return $attr;
     }
 
-    static protected function withdrowPage(array $controller, array $ids): void
+    static public function run(): void
     {
+        $controller = explode('@', self::$controller);
+        $attr = self::$attr;
+
         $controllerClass = current($controller);
         $controllerPath =  'Core\Controllers\\' . $controllerClass;
         if (!class_exists($controllerPath)) {
@@ -62,8 +98,7 @@ class Route
             return;
         }
         $controllerClass = new $controllerPath();
-
-        $controllerClass->setRequest($ids);
+        $controllerClass->setRequest($attr);
         self::witdrawHead();
         if (empty($controller[1])) {
             echo 'Not found method';

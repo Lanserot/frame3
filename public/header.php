@@ -1,3 +1,8 @@
+<?php 
+
+use Core\Route\Route;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,17 +25,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="<?= Route::route('main'); ?>">Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/test">Test</a>
+          <a class="nav-link" href="<?= Route::route('test-page'); ?>">Test</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/admin">Main</a>
+            <a class="dropdown-item" href="<?= Route::route('admin'); ?>">Main</a>
             <a class="dropdown-item" href="/user/42">User 42</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/admin">Something else here</a>

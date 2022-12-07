@@ -10,4 +10,9 @@ class TestController extends Controller
     {
         echo 'Test Page';
     }
+
+    public function testMethod(): void
+    {
+        echo 'Test method Page';
+    }
 }

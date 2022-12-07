@@ -2,92 +2,89 @@
 
 namespace Core\Route;
 
-use Core\Tools\DebugTool;
-
 class Route
 {
-    private string $requestUrl = '';
-
-    private string $prepareUrl = '';
-
-    private array $routeConfig = [];
-
-    public function __construct()
+    static public function get(string $url, string $controller): void
     {
-        $this->routeConfig = require 'Config.php';
-        $this->setRequestUrl($_SERVER['REQUEST_URI']);
-        $this->prepareUrl();
-    }
-    
-    protected function prepareUrl(): void
-    {
-        $requestUrl = $this->getRequestUrl();
-        $requestUrl = explode('/', $requestUrl);
+        $requestUrl = $_SERVER['REQUEST_URI'];
+        if ($requestUrl != '/') {
+            $requestUrl = explode('/', $requestUrl);
+            $urlExp = explode('/', $url);
 
-        $requestUrl = array_filter($requestUrl, function($k) {
-            return !empty($k);
-        });
-        
-        $prepareUrlWithId = $this->prepareUrlCheckId($requestUrl);
+            $requestUrl = array_filter($requestUrl, function ($k) {
+                return !empty($k);
+            });
+            $requestUrl = array_values($requestUrl);
 
-        if (!empty($prepareUrlWithId)) {
-            $this->setPrepareUrl($prepareUrlWithId);
+            $attr = self::checkUrlAttr($urlExp, $requestUrl);
+
+            $urlChange = array_map(function ($val) use ($attr) {
+                $valReplace = str_replace(['{', '}'], '', $val);
+                if (key_exists($valReplace, $attr)) {
+                    return $attr[$valReplace];
+                }
+
+                return $val;
+            }, $urlExp);
+
+            $requestUrl = implode('/', $requestUrl);
+            $url = implode('/', $urlChange);
+        }
+
+        if ($requestUrl !== $url) {
             return;
         }
 
-        $this->setPrepareUrl(implode('/', $requestUrl));
+        $controller = explode('@', $controller);
+        self::withdrowPage($controller, $attr);
     }
 
-    private function prepareUrlCheckId(array $requestUrl): string
+    static private function checkUrlAttr(array $urlMy, array $requestUrl): array
     {
-        //TODO user/{id}/change not work
-        
-        $id = array_pop($requestUrl);
-        $requestUrl = array_values($requestUrl);
-
-        foreach ($this->routeConfig['routes'] as $route => $val) {
-            $preRoute = explode('/', $route);
-            if (preg_match('/^\{(.+?)\}$/', end($preRoute))) {
-                array_pop($preRoute);
-                $preRoute = array_values($preRoute);
-                if ($preRoute == $requestUrl) {
-                    $route = implode('/', $requestUrl);
-                    $route = $route . '/{' . $id . '}';
-                    return $route;
+        $attr = [];
+        if (count($urlMy) == count($requestUrl)) {
+            for ($i = 0; $i < count($urlMy); $i++) {
+                if (empty($requestUrl[$i]) || $urlMy[$i] == $requestUrl[$i]) continue;
+                if (preg_match('/^\{(.+?)\}$/', $urlMy[$i]) == true) {
+                    $attr[str_replace(['{', '}'], '', $urlMy[$i])] = $requestUrl[$i];
                 }
             }
         }
-
-        return '';
+        return $attr;
     }
 
-    public function getRequestUrl(): string
+    static protected function withdrowPage(array $controller, array $ids): void
     {
-        return $this->requestUrl;
+        $controllerClass = current($controller);
+        $controllerPath =  'Core\Controllers\\' . $controllerClass;
+        if (!class_exists($controllerPath)) {
+            echo $controllerClass . ' not found';
+            return;
+        }
+        $controllerClass = new $controllerPath();
+
+        $controllerClass->setRequest($ids);
+        self::witdrawHead();
+        if (empty($controller[1])) {
+            echo 'Not found method';
+        } else {
+            $controllerMethod = $controller[1];
+            $controllerClass->$controllerMethod();
+        }
+        self::witdrawFooter();
     }
 
-    public function setRequestUrl(string $requestUrl): void
+    static public function witdrawHead(): void
     {
-        $this->requestUrl = $requestUrl;
+        if (file_exists('public/header.php')) {
+            require 'public/header.php';
+        }
     }
 
-    public function getPrepareUrl(): string
+    static function witdrawFooter(): void
     {
-        return $this->prepareUrl;
-    }
-
-    public function setPrepareUrl(string $prepareUrl): void
-    {
-        $this->prepareUrl = $prepareUrl;
-    }
-
-    public function getRouteConfig(): array
-    {
-        return $this->routeConfig;
-    }
-
-    public function setRouteConfig(array $routeConfig): void
-    {
-        $this->routeConfig = $routeConfig;
+        if (file_exists('public/footer.php')) {
+            require 'public/footer.php';
+        }
     }
 }

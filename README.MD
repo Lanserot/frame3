@@ -10,7 +10,7 @@
  
 ## Что реализовано
 ```
--рутеры
+-рутеры (на манер ларавел)
 -контроллеры
 -модели
 -миграция с версиями (для отката и наката), рандомное заполнение данных
@@ -24,4 +24,7 @@ php migration.php -r:Migrate
 
 Откат миграций
 php migration.php -r:Down
+
+PhpStan
+php vendor\phpstan\phpstan\phpstan analyse core
 ```

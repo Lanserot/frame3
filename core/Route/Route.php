@@ -2,13 +2,16 @@
 
 namespace Core\Route;
 
+use Core\Controllers\Default\ControllerInterface;
+
 class Route
 {
-    private static $_instance = null;
-    private static $url = '';
-    private static $controller = '';
-    private static $attr = [];
-    private static $routeNameList = [];
+    private static ?Route $_instance = null;
+    private static bool $found = false;
+    private static string $url = '';
+    private static string $controller = '';
+    private static array $attr = [];
+    private static array $routeNameList = [];
 
     public static function getInstance()
     {
@@ -27,6 +30,9 @@ class Route
     static public function get(string $url, string $controller): Route
     {
         self::$url = $url;
+
+        if(self::$found) return self::getInstance();
+
         $requestUrl = $_SERVER['REQUEST_URI'];
         $attr = [];
         if ($requestUrl != '/') {
@@ -60,6 +66,7 @@ class Route
 
         self::$controller = $controller;
         self::$attr = $attr;
+        self::$found = true;
 
         return self::getInstance();
     }
@@ -95,13 +102,21 @@ class Route
             echo $controllerClass . ' not found';
             return;
         }
+
         $controllerClass = new $controllerPath();
+
+        if (!($controllerClass instanceof ControllerInterface)) {
+            echo $controllerClass . ' not inmplements ControllerInterface';
+            return;
+        }
+
         $controllerClass->setRequest($attr);
         if (empty($controller[1])) {
-            echo 'Not found method';
-        } else {
-            $controllerMethod = $controller[1];
-            $controllerClass->$controllerMethod();
-        }
+            echo 'Not found init method';
+            return;
+        } 
+
+        $controllerMethod = $controller[1];
+        $controllerClass->$controllerMethod();
     }
 }

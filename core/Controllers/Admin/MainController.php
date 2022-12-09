@@ -8,6 +8,6 @@ class MainController extends Controller
 {
     public function index(): void
     {
-        $this->show('Admin.index');
+        $this->render('Admin.index');
     }
 }

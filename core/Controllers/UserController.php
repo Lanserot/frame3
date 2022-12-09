@@ -15,13 +15,13 @@ class UserController extends Controller
             echo 'User not found';
             return;
         }
-        $this->show('User.index', ['user' => $result, 'title' => 'Список пользователей']);
+        $this->render('User.index', ['user' => $result]);
     }
 
     public function user(): void
     {
         $users = new UserModel();
         $users = $users->getLimit(10, 'DESC');
-        $this->show('User.list', ['users' => $users]);
+        $this->render('User.list', ['users' => $users]);
     }
 }

@@ -9,6 +9,7 @@
             "Core\\Tools\\": "core/Tools/",
             "Core\\Controllers\\": "core/Controllers/",
             "Core\\": "core/",
+            "Core\\Interfaces\\": "core/Interfaces",
             "Core\\Models\\": "core/Models",
             "Migrations\\": "migrations/",
             "Migrations\\migrate\\": "migrations/migrate/",

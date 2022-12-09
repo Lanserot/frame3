@@ -40,6 +40,7 @@ use Core\Route\Route;
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="<?= Route::route('admin'); ?>">Main</a>
             <a class="dropdown-item" href="/user/42">User 42</a>
+            <a class="dropdown-item" href="/user/10">User 10</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="<?= Route::route('admin'); ?>">Something else here</a>
           </div>

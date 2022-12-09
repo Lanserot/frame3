@@ -8,6 +8,6 @@ class Error404Controller extends Controller
 {
     public function index(): void
     {
-        $this->show('Errors.404');
+        $this->render('Errors.404');
     }
 }

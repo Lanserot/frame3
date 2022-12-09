@@ -4,7 +4,7 @@ namespace Core\Tools;
 
 class DebugTool
 {
-    public static function preData($data): void
+    static public function preData($data): void
     {
         if (is_array($data)) {
             echo '<pre>';

@@ -9,13 +9,8 @@ class UserController extends Controller
 {
     public function index(): void
     {
-        echo $this->request['id'];
-        // $user = new UserModel();
-        // $result = $user->find($id);
-        // if (!isset($result->mail)) {
-            // echo 'Your email not found';
-        // } else {
-            // echo 'Your email ' . $result->mail;
-        // }
+        $user = new UserModel();
+        $result = $user->find($this->request['id']);
+        $this->show('User.index', ['user' => $result]);
     }
 }

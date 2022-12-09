@@ -4,8 +4,12 @@ namespace Core\Controllers\Default;
 
 class Controller
 {
-    public function show(string $page): void
+    public function show(string $page, array $t = []): void
     {
+        foreach($t as $k => $v){
+            $$k = $v;
+        }
+
         $page = str_replace('.', '/', $page);
         echo require 'public/' . $page . '.php';
     }

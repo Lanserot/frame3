@@ -13,6 +13,6 @@ class TestController extends Controller
 
     public function testMethod(): void
     {
-        echo 'Test method Page';
+        echo 'is it Test method Page';
     }
 }

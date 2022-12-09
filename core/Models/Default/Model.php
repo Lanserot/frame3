@@ -17,6 +17,23 @@ class Model
 
     public function find(int $id): bool|stdClass
     {
-        return $this->db->query('SELECT * FROM `Users` WHERE `id` = ' . $id)->fetch(PDO::FETCH_OBJ);
+        $sql = 'SELECT * FROM `Users` WHERE `id` = ' . $id;
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function getLimit(int $limit = 10, string $order = 'DESC'): bool|array
+    {
+        if (!in_array($order, ['DESC', 'ASC'])) {
+            $order = 'DESC';
+        }
+        if ($limit < 1) {
+            $limit = 10;
+        }
+        $sql = "SELECT * FROM `Users` ORDER BY id $order limit $limit";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

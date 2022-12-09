@@ -11,6 +11,17 @@ class UserController extends Controller
     {
         $user = new UserModel();
         $result = $user->find($this->request['id']);
-        $this->show('User.index', ['user' => $result]);
+        if (!$result) {
+            echo 'User not found';
+            return;
+        }
+        $this->show('User.index', ['user' => $result, 'title' => 'Список пользователей']);
+    }
+
+    public function user(): void
+    {
+        $users = new UserModel();
+        $users = $users->getLimit(10, 'DESC');
+        $this->show('User.list', ['users' => $users]);
     }
 }

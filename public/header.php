@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Core\Route\Route;
 
@@ -12,7 +12,7 @@ use Core\Route\Route;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <title>Header</title>
+  <title>@title@</title>
 </head>
 
 <body>
@@ -30,6 +30,9 @@ use Core\Route\Route;
         <li class="nav-item">
           <a class="nav-link" href="<?= Route::route('test-page'); ?>">Test</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= Route::route('users'); ?>">Users</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
@@ -38,7 +41,7 @@ use Core\Route\Route;
             <a class="dropdown-item" href="<?= Route::route('admin'); ?>">Main</a>
             <a class="dropdown-item" href="/user/42">User 42</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/admin">Something else here</a>
+            <a class="dropdown-item" href="<?= Route::route('admin'); ?>">Something else here</a>
           </div>
         </li>
         <li class="nav-item">

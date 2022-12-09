@@ -2,8 +2,6 @@
 
 namespace Core\Route;
 
-use Core\Tools\DebugTool;
-
 class Route
 {
     private static $_instance = null;
@@ -99,27 +97,11 @@ class Route
         }
         $controllerClass = new $controllerPath();
         $controllerClass->setRequest($attr);
-        self::witdrawHead();
         if (empty($controller[1])) {
             echo 'Not found method';
         } else {
             $controllerMethod = $controller[1];
             $controllerClass->$controllerMethod();
-        }
-        self::witdrawFooter();
-    }
-
-    static public function witdrawHead(): void
-    {
-        if (file_exists('public/header.php')) {
-            require 'public/header.php';
-        }
-    }
-
-    static function witdrawFooter(): void
-    {
-        if (file_exists('public/footer.php')) {
-            require 'public/footer.php';
         }
     }
 }

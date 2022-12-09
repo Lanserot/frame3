@@ -12,9 +12,15 @@ use Core\Route\Route;
 Route::get(
     '/', 'MainController@index'
 )->name('main');
+
 Route::get(
     'test', 'TestController@testMethod'
-)->name('test-page');
+)->name('test-page'); 
+
+Route::get(
+    'users', 'UserController@user'
+)->name('users');
+
 Route::get(
     'user/{id}', 'UserController@index'
 );

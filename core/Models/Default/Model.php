@@ -10,6 +10,8 @@ class Model
 {
     use DbConnectTrait;
 
+    public string $table = '';
+
     public function __construct()
     {
         $this->connect();

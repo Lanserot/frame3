@@ -27,12 +27,11 @@ class Route
         return self::$routeNameList[$route];
     }
 
-    static public function get(string $url, string $controller): Route
+    static private function requestMethod(string $url, string $controller): Route
     {
         self::$url = $url;
 
-        if(self::$found) return self::getInstance();
-
+        if (self::$found) return self::getInstance();
         $requestUrl = $_SERVER['REQUEST_URI'];
         $attr = [];
         if ($requestUrl != '/') {
@@ -69,6 +68,29 @@ class Route
         self::$found = true;
 
         return self::getInstance();
+
+    }
+
+    static public function post(string $url, string $controller): Route
+    {
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            return self::getInstance();
+        }
+        
+        self::requestMethod($url, $controller);
+
+        self::$attr = $_POST;
+        
+        return self::getInstance();
+    }
+
+    static public function get(string $url, string $controller): Route
+    {
+        if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+            return self::getInstance();
+        }
+
+        return self::requestMethod($url, $controller);
     }
 
     static public function name(string $name): self
@@ -109,12 +131,12 @@ class Route
             echo $controllerClass . ' not inmplements ControllerInterface';
             return;
         }
-
+        
         $controllerClass->setRequest($attr);
         if (empty($controller[1])) {
             echo 'Not found init method';
             return;
-        } 
+        }
 
         $controllerMethod = $controller[1];
         $controllerClass->$controllerMethod();

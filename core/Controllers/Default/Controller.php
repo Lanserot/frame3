@@ -7,7 +7,8 @@ use Core\Controllers\Default\Page\PageFactory;
 class Controller implements ControllerInterface
 {   
     private PageFactory $pageFactory;
-    
+    public array $request = [];
+
     public function __construct()
     {  
         $this->initPageFactory();
@@ -16,6 +17,10 @@ class Controller implements ControllerInterface
     public function render(string $page, array $attr = []): void
     {
         $filePath = 'public/' . str_replace('.', '/', $page) . '.php';
+        if(!file_exists($filePath)){
+            echo $page . ' not found';
+            return;
+        }
         $this->pageFactory->renderPage($filePath, $attr);
     }
 
@@ -26,7 +31,7 @@ class Controller implements ControllerInterface
 
     public function __call(string $method, array $arguments): void
     {
-        echo $method . ' not foud';
+        echo $method . ' not found';
     }
 
     public function initPageFactory()

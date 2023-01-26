@@ -15,11 +15,21 @@ Route::get(
 )->name('users');
 
 Route::get(
+    'login', 'UserController@login'
+)->name('login');
+
+Route::post(
+    'login', 'UserController@loginPost'
+)->name('login');
+
+Route::get(
     'user/{id}', 'UserController@index'
 );
+
 Route::get(
     'user/{id}/change', 'UserController@index'
 );
+
 Route::get(
     'admin', 'Admin\\MainController@index'
 )->name('admin');

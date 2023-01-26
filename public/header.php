@@ -48,6 +48,9 @@ use Core\Route\Route;
         <li class="nav-item">
           <a class="nav-link disabled" href="/">Disabled</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= Route::route('login'); ?>">Login</a>
+        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

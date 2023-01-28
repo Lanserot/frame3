@@ -1,10 +1,41 @@
 li {
     list-style-type: none; 
 }
+a {
+    text-decoration:none;
+    color: black;
+}
+.row {
+    max-width: 100vw;
+    margin: auto;
+}
 .vertical-center {
+    padding-left: 80px;
     display: table;
+}
+.navbar-light 
+.navbar-brand {
+    color: white;
+}
+
+.navbar-brand {
+    background: #111111;
+    padding: 10px;
+    border-radius: 10px;
 }
 .vertical-center h3 {
     display: table-cell;
     vertical-align: middle;
+}
+.black-bg {
+    padding: 50px 0;
+    background-color: #111111;
+}
+.black-bg a {
+    color: white;
+}
+.black-bg p {
+    color: white;
+    margin-left: 80px;
+
 }

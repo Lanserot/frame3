@@ -2,7 +2,11 @@
 
 namespace Core\Route;
 
+use Closure;
+use Core\Controllers\MainController;
 use Core\Controllers\Default\ControllerInterface;
+use Core\Controllers\Default\Error404Controller;
+use Core\Controllers\MainController as ControllersMainController;
 
 class Route
 {
@@ -24,7 +28,7 @@ class Route
 
     static public function route(string $route)
     {
-        if(empty(self::$routeNameList[$route])){
+        if (empty(self::$routeNameList[$route])) {
             return;
         }
         return self::$routeNameList[$route];
@@ -34,7 +38,9 @@ class Route
     {
         self::$url = $url;
 
+        //Already found page
         if (self::$found) return self::getInstance();
+
         $requestUrl = $_SERVER['REQUEST_URI'];
         $attr = [];
         if ($requestUrl != '/') {
@@ -71,7 +77,6 @@ class Route
         self::$found = true;
 
         return self::getInstance();
-
     }
 
     static public function post(string $url, string $controller): Route
@@ -79,11 +84,11 @@ class Route
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return self::getInstance();
         }
-        
+
         self::requestMethod($url, $controller);
 
         self::$attr = $_POST;
-        
+
         return self::getInstance();
     }
 
@@ -121,10 +126,16 @@ class Route
         $controller = explode('@', self::$controller);
         $attr = self::$attr;
 
+        if (self::$controller == '') {
+            $main = new MainController();
+            $main->index();
+            return;
+        }
+
         $controllerClass = current($controller);
         $controllerPath =  'Core\Controllers\\' . $controllerClass;
         if (!class_exists($controllerPath)) {
-            echo $controllerClass . ' not found';
+            echo $controllerClass . ' not found controller path';
             return;
         }
 
@@ -134,7 +145,7 @@ class Route
             echo $controllerClass . ' not inmplements ControllerInterface';
             return;
         }
-        
+
         $controllerClass->setRequest($attr);
         if (empty($controller[1])) {
             echo 'Not found init method';
@@ -143,5 +154,14 @@ class Route
 
         $controllerMethod = $controller[1];
         $controllerClass->$controllerMethod();
+    }
+
+    static public function middleware(string $middleware)
+    {
+        self::$controller = '';
+        self::$attr = [];
+        self::$found = false;
+
+        return self::getInstance();
     }
 }

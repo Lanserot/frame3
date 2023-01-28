@@ -6,7 +6,8 @@
     "autoload": {
         "psr-4": {
             "Core\\": "core/",
-            "Migrations\\": "migrations/"
+            "Migrations\\": "migrations/",
+            "Middleware\\": "middleware/"
         }
     },
     "authors": [

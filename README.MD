@@ -32,6 +32,8 @@ Body @title=Список пользователей@
 -сбор страницы
 
 -различия POST и GET методы
+
+-Started to implement "Middleware"
 ```
 
 ## техническое

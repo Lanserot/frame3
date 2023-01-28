@@ -1,7 +1,5 @@
-<?php
-
+<?php 
 use Core\Route\Route;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

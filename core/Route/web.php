@@ -25,7 +25,15 @@ Route::post(
 Route::get(
     'user/{id}', 'UserController@index'
 );
-
+Route::get(
+    'about-site/technologies', 'AboutSite\\TechnologiesController@index'
+)->name('technologies');
+Route::get(
+    'about-site/install', 'AboutSite\\InstallController@index'
+)->name('install');
+Route::get(
+    'about-site/documentation', 'AboutSite\\DocumentationController@index'
+)->name('documentation');
 Route::get(
     'user/{id}/change', 'UserController@index'
 );

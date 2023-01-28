@@ -5,22 +5,13 @@
     "license": "nope",
     "autoload": {
         "psr-4": {
-            "Core\\Route\\": "core/Route/",
-            "Core\\Tools\\": "core/Tools/",
-            "Core\\Controllers\\": "core/Controllers/",
             "Core\\": "core/",
-            "Core\\Interfaces\\": "core/Interfaces",
-            "Core\\Models\\": "core/Models",
-            "Migrations\\": "migrations/",
-            "Migrations\\migrate\\": "migrations/migrate/",
-            "Migrations\\migrate\\console\\": "migrations/migrate/console/",
-            "Migrations\\migrate\\core\\": "migrations/migrate/core/",
-            "Migrations\\migrate\\core\\traits\\": "migrations/migrate/core/traits"
+            "Migrations\\": "migrations/"
         }
     },
     "authors": [
         {
-            "name": "VVR"
+            "name": "VVF"
         }
     ],
     "require-dev": {

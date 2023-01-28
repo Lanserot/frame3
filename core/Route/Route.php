@@ -24,6 +24,9 @@ class Route
 
     static public function route(string $route)
     {
+        if(empty(self::$routeNameList[$route])){
+            return;
+        }
         return self::$routeNameList[$route];
     }
 

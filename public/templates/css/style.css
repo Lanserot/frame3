@@ -1,0 +1,10 @@
+li {
+    list-style-type: none; 
+}
+.vertical-center {
+    display: table;
+}
+.vertical-center h3 {
+    display: table-cell;
+    vertical-align: middle;
+}

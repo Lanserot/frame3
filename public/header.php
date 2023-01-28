@@ -1,4 +1,4 @@
-<?php 
+<?php
 use Core\Route\Route;
 ?>
 <!DOCTYPE html>
@@ -27,9 +27,6 @@ use Core\Route\Route;
           <a class="nav-link" href="<?= Route::route('main'); ?>">Главная<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= Route::route('test-page'); ?>">Тестовая</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="<?= Route::route('users'); ?>">Пользователи</a>
         </li>
         <li class="nav-item dropdown">
@@ -44,11 +41,19 @@ use Core\Route\Route;
             <a class="dropdown-item" href="<?= Route::route('admin'); ?>">Something else here</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="/">Disabled</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            О фреймворке
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="<?= Route::route('documentation'); ?>">Документация</a>
+            <a class="dropdown-item" href="<?= Route::route('install'); ?>">Установка</a>
+            <a class="dropdown-item" href="<?= Route::route('technologies'); ?>">Технологии</a>
+          </div>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" href="<?= Route::route('login'); ?>">Login</a>
+          <a class="nav-link" href="<?= Route::route('login'); ?>">Вход</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">

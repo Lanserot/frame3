@@ -38,4 +38,8 @@ class Controller implements ControllerInterface
     {
         $this->pageFactory = new PageFactory();
     }
+
+    public function redirect(string $url = '/'){
+        header("Location: " . $url);
+    }
 }

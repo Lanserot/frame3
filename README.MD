@@ -20,20 +20,16 @@ Header @title@
 Body @title=Список пользователей@
 В итоге в header у наз заголовок установленный через код предназначенный для тела
 
--рутеры (на манер ларавел)
+-рутеры (на манер ларавел, различия POST и GET методы, Started to implement "Middleware")
 пример : Route::get('test', 'TestController@testMethod')->name('test-page');
 
--контроллеры
+-контроллеры (redirect, render)
 
--модели
+-модели(find, getLimit)
 
 -миграция с версиями (для отката и наката), рандомное заполнение данных
 
 -сбор страницы
-
--различия POST и GET методы
-
--Started to implement "Middleware"
 ```
 
 ## техническое

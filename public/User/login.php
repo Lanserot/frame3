@@ -3,6 +3,8 @@
 use Core\Route\Route;
 
 ?>
+@title=Логин@
+
 <div class="container">
     <form action="<?= Route::route('login') ?>" method="POST">
         <p>Login <input type="text" name='login'></p>

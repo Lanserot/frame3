@@ -4,6 +4,7 @@ namespace Core\Controllers;
 
 use Core\Controllers\Default\Controller;
 use Core\Models\UserModel;
+use Core\Route\Route;
 use Core\Tools\DebugTool;
 
 class UserController extends Controller
@@ -13,8 +14,7 @@ class UserController extends Controller
         $user = new UserModel();
         $result = $user->find($this->request['id']);
         if (!$result) {
-            echo 'User not found';
-            return;
+            $this->redirect(Route::route('users'));
         }
         $this->render('User.index', ['user' => $result]);
     }
@@ -40,8 +40,7 @@ class UserController extends Controller
         $user = $users->db->query("SELECT * FROM `users` WHERE `password` = '$pass' AND `login` = '$login' LIMIT 1;")->fetch(\PDO::FETCH_OBJ);
 
         if($user){
-            $this->render('Main.index');
-            return;
+            $this->redirect(Route::route('main'));
         }
 
         $this->render('User.login');

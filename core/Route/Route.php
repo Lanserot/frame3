@@ -2,9 +2,12 @@
 
 namespace Core\Route;
 
+use BaseException;
 use Core\Controllers\Default\ControllerInterface;
 use Core\Interfaces\RouteInterface;
 use Core\Tools\DebugTool;
+use ErrorException;
+use Exception;
 
 class Route extends RouteMethods implements RouteInterface
 {
@@ -30,8 +33,7 @@ class Route extends RouteMethods implements RouteInterface
         $controllerClass = current($controller);
         $controllerPath =  'Core\Controllers\\' . $controllerClass;
         if (!class_exists($controllerPath)) {
-            echo $controllerClass . ' not found controller path';
-            return;
+            throw new BaseException($controllerClass . ' not found controller path');
         }
 
         $controllerClass = new $controllerPath();

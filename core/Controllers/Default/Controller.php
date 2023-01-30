@@ -2,6 +2,7 @@
 
 namespace Core\Controllers\Default;
 
+use BaseException;
 use Core\Controllers\Default\Page\PageFactory;
 
 class Controller implements ControllerInterface
@@ -18,8 +19,7 @@ class Controller implements ControllerInterface
     {
         $filePath = 'public/' . str_replace('.', '/', $page) . '.php';
         if (!file_exists($filePath)) {
-            echo $page . ' not found page';
-            return;
+            throw new BaseException($page . ' not found page');
         }
         $this->pageFactory->renderPage($filePath, $attr);
     }

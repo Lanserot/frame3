@@ -21,7 +21,7 @@ class PageFactory
         }
         require 'public/header.php';
         $header = ob_get_clean();
-        ob_end_clean();
+        // ob_end_clean();
 
         return $header;
     }
@@ -35,7 +35,7 @@ class PageFactory
         }
         require 'public/footer.php';
         $footer = ob_get_clean();
-        ob_end_clean();
+        // ob_end_clean();
 
         return $footer;
     }

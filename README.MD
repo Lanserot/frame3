@@ -7,41 +7,27 @@
 
 Часто я дополняю разные фичи и правклю то, что подходит под "TODO:ИСПРАВИТЬ"
 ```
-
-## Тестируется
-```
- через PhpUnit и PhpStan, собственные методы
- ```
  
-## Что реализовано
+## What is done
 ```
--передача переменных через @@ из тела в header, по типу ларавель 
-Header @title@
-Body @title=Список пользователей@
-В итоге в header у наз заголовок установленный через код предназначенный для тела
-
--рутеры (на манер ларавел, различия POST и GET методы, Started to implement "Middleware")
-пример : Route::get('test', 'TestController@testMethod')->name('test-page');
-
--контроллеры (redirect, render)
-
--модели(find, getLimit)
-
--миграция с версиями (для отката и наката), рандомное заполнение данных
-
--сбор страницы
-
--error handler like laravel
+-Dinamyc page elements like laravel
+-Route like laravel (Post, Get - methods, Started to implement "Middleware")
+-Controllers (redirect, render)
+-Models (find, getLimit)
+-Migration with versions (rollback\migrate), random string data
+-Page factory
+-Error handler like laravel
 ```
 
-## техническое
+## In the plans
 ```
-Запуск миграций
-php migration.php -r:Migrate 
-
-Откат миграций
-php migration.php -r:Down
-
-PhpStan
-php vendor\phpstan\phpstan\phpstan analyse core
+Good middleware, Rest api, strong models, informative debug, loging
+In general, like a real framework
 ```
+
+## Testing
+```
+ PhpUnit и PhpStan
+```
+
+

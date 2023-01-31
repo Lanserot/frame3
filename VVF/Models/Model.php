@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Models\Default;
+namespace VVF\Models;
 
 use Migrations\migrate\core\traits\DbConnectTrait;
 use PDO;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Interfaces;
+namespace VVF\Interfaces;
 
 interface RouteInterface
 {

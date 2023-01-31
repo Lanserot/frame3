@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Controllers\Default\Page;
+namespace VVF\Controllers\Page;
 
 class PageFactory
 {

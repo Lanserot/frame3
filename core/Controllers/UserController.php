@@ -2,7 +2,7 @@
 
 namespace Core\Controllers;
 
-use Core\Controllers\Default\Controller;
+use VVF\Controllers\Controller;
 use Core\Models\UserModel;
 use Core\Route\Route;
 use Core\Tools\DebugTool;

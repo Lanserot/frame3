@@ -2,7 +2,7 @@
 
 namespace Core\Controllers\AboutSite;
 
-use Core\Controllers\Default\Controller;
+use VVF\Controllers\Controller;
 
 class DocumentationController extends Controller
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Core\Controllers\Default;
+namespace VVF\Controllers;
 
-use Core\Controllers\Default\Page\PageFactory;
-use Core\ErrorHandler\ErrorHandler;
+use VVF\Controllers\Page\PageFactory;
+use VVF\ErrorHandler\ErrorHandler;
 
 class Controller implements ControllerInterface
 {

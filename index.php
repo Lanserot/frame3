@@ -6,9 +6,9 @@ if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-require __DIR__ . '/core/ErrorHandler/ErrorSetter.php';
+require __DIR__ . '/VVF/ErrorHandler/ErrorSetter.php';
 
-use Core\Route\Route;
+use VVF\Route\Route;
 
 require __DIR__ . '/core/Route/web.php';
 

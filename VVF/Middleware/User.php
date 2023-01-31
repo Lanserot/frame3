@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Middleware;
+namespace VVF\Middleware;
 
 
 class User

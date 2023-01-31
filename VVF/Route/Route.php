@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Route;
+namespace VVF\Route;
 
-use Core\Controllers\Default\ControllerInterface;
-use Core\Interfaces\RouteInterface;
-use Core\ErrorHandler\ErrorHandler;
+use VVF\Controllers\ControllerInterface;
+use VVF\Interfaces\RouteInterface;
+use VVF\ErrorHandler\ErrorHandler;
 
 class Route extends RouteMethods implements RouteInterface
 {

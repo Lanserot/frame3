@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Controllers\Default;
+namespace VVF\Controllers;
 
-use Core\Controllers\Default\Controller;
+use VVF\Controllers\Controller;
 
 class Error404Controller extends Controller
 {

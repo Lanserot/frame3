@@ -1,6 +1,6 @@
 <?php
 
-use Core\Route\Route;
+use VVF\Route\Route;
 
 Route::get('/', 'MainController@index')->name('main');
 Route::get('users', 'UserController@user')->name('users');

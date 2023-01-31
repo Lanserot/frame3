@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Tools;
+namespace VVF\Tools;
 
 class DebugTool
 {

@@ -1,0 +1,8 @@
+Запуск миграций
+php migration.php -r:Migrate 
+
+Откат миграций
+php migration.php -r:Down
+
+PhpStan
+php vendor\phpstan\phpstan\phpstan analyse core

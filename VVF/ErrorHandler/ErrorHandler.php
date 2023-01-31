@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\ErrorHandler;
+namespace VVF\ErrorHandler;
 
 use Exception;
 

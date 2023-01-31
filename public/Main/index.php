@@ -1,6 +1,6 @@
 <?php
 
-use Core\Route\Route;
+use VVF\Route\Route;
 
 ?>
 @title=Главная@

@@ -2,7 +2,7 @@
 
 namespace Core\Controllers\Admin;
 
-use Core\Controllers\Default\Controller;
+use VVF\Controllers\Controller;
 
 class MainController extends Controller 
 {

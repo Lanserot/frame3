@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Controllers\Default;
+namespace VVF\Controllers;
 
 interface ControllerInterface
 {

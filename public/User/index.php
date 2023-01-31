@@ -1,6 +1,6 @@
 @title=Пользователь@
 <?php 
-use Core\Route\Route;
+use VVF\Route\Route;
 ?>
 <section style="background-color: #eee;">
   <div class="container py-5">

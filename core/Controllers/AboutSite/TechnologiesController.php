@@ -2,7 +2,7 @@
 
 namespace Core\Controllers\AboutSite;
 
-use Core\Controllers\Default\Controller;
+use VVF\Controllers\Controller;
 
 class TechnologiesController extends Controller
 {

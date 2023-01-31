@@ -7,7 +7,7 @@
         "psr-4": {
             "Core\\": "core/",
             "Migrations\\": "migrations/",
-            "Middleware\\": "middleware/"
+            "VVF\\": "VVF/"
         }
     },
     "authors": [

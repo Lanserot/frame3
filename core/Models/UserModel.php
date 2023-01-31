@@ -2,7 +2,7 @@
 
 namespace Core\Models;
 
-use Core\Models\Default\Model;
+use VVF\Models\Model;
 
 class UserModel extends Model
 {

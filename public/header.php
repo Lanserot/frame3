@@ -1,5 +1,5 @@
 <?php
-use Core\Route\Route;
+use VVF\Route\Route;
 ?>
 <!DOCTYPE html>
 <html lang="en">

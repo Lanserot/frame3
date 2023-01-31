@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Route;
+namespace VVF\Route;
 
-use Core\Interfaces\RouteInterface;
+use VVF\Interfaces\RouteInterface;
 
 class RouteMethods implements RouteInterface
 {

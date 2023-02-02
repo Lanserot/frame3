@@ -2,7 +2,7 @@
 
 namespace Migrations\migrate\core;
 
-use Core\Tools\StrClass;
+use VVF\Tools\StrClass;
 use Migrations\migrate\core\MigrationInterface;
 use Migrations\migrate\core\traits\DbConnectTrait;
 use Migrations\migrate\core\traits\MigrateContainerTrait;

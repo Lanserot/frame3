@@ -1,6 +1,6 @@
 <?php
 
-use Core\Tools\StrClass;
+use VVF\Tools\StrClass;
 use PHPUnit\Framework\TestCase;
 
 class StrClassTest extends TestCase

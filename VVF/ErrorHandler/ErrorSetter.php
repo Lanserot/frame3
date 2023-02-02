@@ -6,12 +6,14 @@ ini_set('display_errors', 1);
 
 function myHandler($level, $message, $file, $line)
 {
-    ErrorHandler::myHandler($level, $message, $file, $line);
+    $handler = new ErrorHandler();
+    $handler->myHandler($level, $message, $file, $line);
 }
 
 set_error_handler('myHandler', E_ALL);
 function shutdown()
 {
-    ErrorHandler::shutdown();
+    $handler = new ErrorHandler();
+    $handler->shutdown();
 }
 register_shutdown_function('shutdown');

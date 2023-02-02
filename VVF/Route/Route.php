@@ -27,27 +27,24 @@ class Route extends RouteMethods implements RouteInterface
             return;
         }
 
-        $controllerClass = current($controller);
-        $controllerPath =  'Core\Controllers\\' . $controllerClass;
+        $controllerName = array_shift($controller);
+        $controllerPath =  'Core\Controllers\\' . $controllerName;
         if (!class_exists($controllerPath)) {
-            throw new ErrorHandler($controllerClass . ' not found controller path');
+            throw new ErrorHandler($controllerName . ' not found controller path');
         }
 
-        $controllerClass = new $controllerPath();
+        $class = new $controllerPath();
 
-        if (!($controllerClass instanceof ControllerInterface)) {
-            echo $controllerClass . ' not inmplements ControllerInterface';
-            return;
+        if (!($class instanceof ControllerInterface)) {
+            throw new ErrorHandler($controllerName . ' not inmplements ControllerInterface');
         }
 
-        $controllerClass->setRequest($attr);
-        if (empty($controller[1])) {
-            echo 'Not found init method';
-            return;
-        }
+        $class->setRequest($attr);
+        $method = current($controller) ?? '';
 
-        $controllerMethod = $controller[1];
-        $controllerClass->$controllerMethod();
+        if (!method_exists($class, $method)) {
+            throw new ErrorHandler('Not found ' . $controllerName . ' method - ' . $method);
+        }
+        $class->$method();
     }
-
 }

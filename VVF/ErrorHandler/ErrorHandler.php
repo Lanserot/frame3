@@ -7,7 +7,7 @@ use Exception;
 class ErrorHandler extends Exception
 {
 
-    static public function myHandler(int $level, string $message, string $file, int $line): void
+    public function myHandler(int $level, string $message, string $file, int $line): void
     {
         $back = debug_backtrace();
         ob_start();
@@ -18,11 +18,11 @@ class ErrorHandler extends Exception
         $trace = str_replace('#', '<br>#', $trace);
         $lines = file($back[0]['args'][2]);
         $lineNum = $back[0]['args'][3];
-        self::printErrorPage($message, $trace, $lines, $lineNum);
+        $this->printErrorPage($message, $trace, $lines, $lineNum);
         exit();
     }
 
-    static public function shutdown()
+    public function shutdown()
     {
         $error = error_get_last();
         if (
@@ -40,11 +40,12 @@ class ErrorHandler extends Exception
             $errorStack = implode('<br><br>', $errorStack);
             $lines = file($error['file']);
             $lineNum = $error['line'];
-            self::printErrorPage($errorText, $errorStack, $lines, $lineNum);
+            $this->printErrorPage($errorText, $errorStack, $lines, $lineNum);
             exit();
         }
     }
-    static private function printErrorPage(string $errorText, string $errorStack, $lines, int $lineNum): void
+
+    private function printErrorPage(string $errorText, string $errorStack, $lines, int $lineNum): void
     {
         echo '<!DOCTYPE html>
             <html lang="en">
@@ -75,7 +76,7 @@ class ErrorHandler extends Exception
             <div class="col-lg-6"> 
                 <p>';
         echo '<pre>';
-        self::printFileLines($lines, $lineNum);
+        $this->printFileLines($lines, $lineNum);
         echo '</pre>
             </p>
             </div>
@@ -84,7 +85,7 @@ class ErrorHandler extends Exception
             </body>';
     }
 
-    static private function printFileLines($lines, int $lineNum): void
+    private function printFileLines($lines, int $lineNum): void
     {
         foreach ($lines as $line_num => $line) {
             if ($line_num + 10 >= $lineNum - 1 && $lineNum - 1 >= $line_num - 10) {

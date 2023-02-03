@@ -2,6 +2,8 @@
 
 namespace VVF\Controllers\Page;
 
+use VVF\ErrorHandler\ErrorHandler;
+
 class PageFactory
 {
     protected string $filePath = '';
@@ -12,43 +14,41 @@ class PageFactory
         $this->setFilePath($filePath)->setAttr($attr)->build();
     }
 
-    protected function renderHeader(): string
+    protected function renderHeaderFooter(bool $isHeader = false): string
     {
+        $render = 'footer';
+
+        if($isHeader){
+            $render = 'header';
+        }
+
         ob_start();
         ob_implicit_flush(false);
-        if (!file_exists('public/header.php')) {
+        if (!file_exists('public/'.$render.'.php')) {
             return '';
         }
-        require 'public/header.php';
+        require 'public/'.$render.'.php';
         $header = ob_get_clean();
 
         return $header;
     }
 
-    protected function renderFooter(): string
-    {
-        ob_start();
-        ob_implicit_flush(false);
-        if (!file_exists('public/footer.php')) {
-            return '';
-        }
-        require 'public/footer.php';
-        $footer = ob_get_clean();
-
-        return $footer;
-    }
-
     protected function build(): void
     {
-        foreach ($this->getAttr() as $k => $v) {
+        foreach ($this->attr as $k => $v) {
             $$k = $v;
         }
 
-        $header = $this->renderHeader();
-        $footer = $this->renderFooter();
+        $header = $this->renderHeaderFooter(true);
+        $footer = $this->renderHeaderFooter();
 
         ob_start();
-        extract($this->getAttr(), EXTR_OVERWRITE);
+        extract($this->attr, EXTR_OVERWRITE);
+
+        if(!file_exists($this->getFilePath())){
+            throw new ErrorHandler('Cant found ' . $this->getFilePath());
+        }
+
         require $this->getFilePath();
         $body = ob_get_clean();
         $checkAttr = preg_match_all('/@(.+?)@/', $body, $matches);
@@ -87,8 +87,4 @@ class PageFactory
         return $this->filePath;
     }
 
-    public function getAttr(): array
-    {
-        return $this->attr;
-    }
 }

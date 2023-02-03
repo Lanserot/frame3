@@ -28,6 +28,33 @@ class RouteMethods implements RouteInterface
         return self::getInstance();
     }
 
+    static private function checkUrl(string $url, string $requestUrl): bool
+    {
+        $requestUrl = explode('/', $requestUrl);
+        $urlExp = explode('/', $url);
+        $requestUrl = array_filter($requestUrl, function ($k) {
+            return !empty($k);
+        });
+
+        $requestUrl = array_values($requestUrl);
+
+        self::$attr = self::checkUrlAttr($urlExp, $requestUrl);
+        $attr = self::$attr;
+
+        $urlChange = array_map(function ($val) use ($attr) {
+            $valReplace = str_replace(['{', '}'], '', $val);
+            if (key_exists($valReplace, $attr)) {
+                return $attr[$valReplace];
+            }
+
+            return $val;
+        }, $urlExp);
+
+        $requestUrl = implode('/', $requestUrl);
+        $url = implode('/', $urlChange);
+        return $requestUrl === $url;
+    }
+
     static protected function requestMethod(string $url, string $controller): Route
     {
         self::$url = $url;
@@ -35,40 +62,13 @@ class RouteMethods implements RouteInterface
         //Already found page
         if (self::$found) return self::getInstance();
 
-        $requestUrl = $_SERVER['REQUEST_URI'];
-        $attr = [];
-        if ($requestUrl != '/') {
-            $requestUrl = explode('/', $requestUrl);
-            $urlExp = explode('/', $url);
-
-            $requestUrl = array_filter($requestUrl, function ($k) {
-                return !empty($k);
-            });
-
-            $requestUrl = array_values($requestUrl);
-
-            $attr = self::checkUrlAttr($urlExp, $requestUrl);
-
-            $urlChange = array_map(function ($val) use ($attr) {
-                $valReplace = str_replace(['{', '}'], '', $val);
-                if (key_exists($valReplace, $attr)) {
-                    return $attr[$valReplace];
-                }
-
-                return $val;
-            }, $urlExp);
-
-            $requestUrl = implode('/', $requestUrl);
-            $url = implode('/', $urlChange);
+        if (
+            $_SERVER['REQUEST_URI'] != '/' && self::checkUrl($url, $_SERVER['REQUEST_URI'])
+            || $_SERVER['REQUEST_URI'] == '/' && $_SERVER['REQUEST_URI'] == $url
+        ) {
+            self::$controller = $controller;
+            self::$found = true;
         }
-
-        if ($requestUrl !== $url) {
-            return self::getInstance();
-        }
-
-        self::$controller = $controller;
-        self::$attr = $attr;
-        self::$found = true;
 
         return self::getInstance();
     }
@@ -95,9 +95,10 @@ class RouteMethods implements RouteInterface
         return self::requestMethod($url, $controller);
     }
 
-    static protected function checkUrlAttr(array $urlMy, array $requestUrl): array
+    static private function checkUrlAttr(array $urlMy, array $requestUrl): array
     {
         $attr = [];
+
         if (count($urlMy) == count($requestUrl)) {
             for ($i = 0; $i < count($urlMy); $i++) {
                 if (empty($requestUrl[$i]) || $urlMy[$i] == $requestUrl[$i]) continue;

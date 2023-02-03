@@ -4,7 +4,7 @@ namespace Core\Controllers;
 
 use VVF\Controllers\Controller;
 use Core\Models\UserModel;
-use Core\Route\Route;
+use VVF\Route\Route;
 use Core\Tools\DebugTool;
 
 class UserController extends Controller

@@ -9,17 +9,17 @@ use Core\Tools\DebugTool;
 
 class UserController extends Controller
 {
-    public function index(): void
+    public function show(): void
     {
         $user = new UserModel();
         $result = $user->find($this->request['id']);
         if (!$result) {
-            $this->redirect(Route::route('users'));
+            $this->redirect(Route::route('users.index'));
         }
         $this->render('User.index', ['user' => $result]);
     }
 
-    public function user(): void
+    public function index(): void
     {
         $users = new UserModel();
         $users = $users->getLimit(10, 'DESC');

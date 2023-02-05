@@ -11,7 +11,7 @@
 ## What is done
 ```
 -Dinamyc page elements like laravel
--Route like laravel (Post, Get - methods, Started to implement "Middleware")
+-Route like laravel (Post, Get - methods, Started to implement "Middleware, Resourses")
 -Controllers (redirect, render)
 -Models (find, getLimit)
 -Migration with versions (rollback\migrate), random string data

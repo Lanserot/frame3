@@ -9,7 +9,7 @@ use VVF\Route\Route;
         <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="<?= Route::route('main')?>">Home</a></li>
-            <li class="breadcrumb-item"><a href="<?= Route::route('users')?>">Users</a></li>
+            <li class="breadcrumb-item"><a href="<?= Route::route('users.index')?>">Users</a></li>
             <li class="breadcrumb-item active" aria-current="page">User Profile</li>
           </ol>
         </nav>

@@ -27,7 +27,7 @@ use VVF\Route\Route;
           <a class="nav-link" href="<?= Route::route('main'); ?>">Главная<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= Route::route('users'); ?>">Пользователи</a>
+          <a class="nav-link" href="<?= Route::route('users.index'); ?>">Пользователи</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,8 +35,8 @@ use VVF\Route\Route;
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="<?= Route::route('admin'); ?>">Main</a>
-            <a class="dropdown-item" href="/user/42">User 42</a>
-            <a class="dropdown-item" href="/user/10">User 10</a>
+            <a class="dropdown-item" href="/users/42">User 42</a>
+            <a class="dropdown-item" href="/users/10">User 10</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="<?= Route::route('admin'); ?>">Something else here</a>
           </div>

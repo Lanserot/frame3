@@ -6,6 +6,8 @@ use VVF\ErrorHandler\ErrorHandler;
 
 class PageFactory
 {
+    const FOOTER = 'footer';
+    const HEADER = 'header';
     protected string $filePath = '';
     protected array $attr = [];
 
@@ -14,20 +16,14 @@ class PageFactory
         $this->setFilePath($filePath)->setAttr($attr)->build();
     }
 
-    protected function renderHeaderFooter(bool $isHeader = false): string
+    protected function renderElement(string $element = ''): string
     {
-        $render = 'footer';
-
-        if($isHeader){
-            $render = 'header';
-        }
-
         ob_start();
         ob_implicit_flush(false);
-        if (!file_exists('public/'.$render.'.php')) {
-            return '';
+        if (!file_exists('public/' . $element . '.php')) {
+            throw new ErrorHandler('"public/' . $element . '.php" not found element');
         }
-        require 'public/'.$render.'.php';
+        require 'public/' . $element . '.php';
         $header = ob_get_clean();
 
         return $header;
@@ -39,13 +35,13 @@ class PageFactory
             $$k = $v;
         }
 
-        $header = $this->renderHeaderFooter(true);
-        $footer = $this->renderHeaderFooter();
+        $header = $this->renderElement(self::HEADER);
+        $footer = $this->renderElement(self::FOOTER);
 
         ob_start();
         extract($this->attr, EXTR_OVERWRITE);
 
-        if(!file_exists($this->getFilePath())){
+        if (!file_exists($this->getFilePath())) {
             throw new ErrorHandler('Cant found ' . $this->getFilePath());
         }
 
@@ -86,5 +82,4 @@ class PageFactory
     {
         return $this->filePath;
     }
-
 }

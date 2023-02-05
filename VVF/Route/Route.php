@@ -17,7 +17,7 @@ class Route extends RouteMethods implements RouteInterface
         return self::$routeNameList[$route];
     }
 
-    static public function run(): void
+    static public function run()
     {
         $controller = explode('@', self::$controller);
         $attr = self::$attr;
@@ -45,6 +45,14 @@ class Route extends RouteMethods implements RouteInterface
         if (!method_exists($class, $method)) {
             throw new ErrorHandler('Not found ' . $controllerName . ' method - ' . $method);
         }
+
+        if (self::$isUnitTest) {
+            return [
+                'pathMethod' => $controllerPath . '::' . $method,
+                'attr' => $attr
+            ];
+        }
+
         $class->$method();
     }
 }

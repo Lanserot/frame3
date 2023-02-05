@@ -7,6 +7,7 @@ use VVF\Interfaces\RouteInterface;
 class RouteMethods implements RouteInterface
 {
     protected static bool $found = false;
+    public static bool $isUnitTest = false;
     protected static ?Route $_instance = null;
     protected static string $url = '';
     protected static string $controller = '';
@@ -28,19 +29,20 @@ class RouteMethods implements RouteInterface
         return self::getInstance();
     }
 
-    static private function checkUrl(string $url, string $requestUrl): bool
+    static private function comparisonUrl(string $url): bool
     {
-        $requestUrl = explode('/', $requestUrl);
         $urlExp = explode('/', $url);
-        $requestUrl = array_filter($requestUrl, function ($k) {
+
+        $requestUrl = array_filter(explode('/', $_SERVER['REQUEST_URI']), function ($k) {
             return !empty($k);
         });
 
         $requestUrl = array_values($requestUrl);
 
-        self::$attr = self::checkUrlAttr($urlExp, $requestUrl);
+        self::prepareUrlAttr($urlExp, $requestUrl);
         $attr = self::$attr;
 
+        //change attr like {id} on found attr
         $urlChange = array_map(function ($val) use ($attr) {
             $valReplace = str_replace(['{', '}'], '', $val);
             if (key_exists($valReplace, $attr)) {
@@ -52,6 +54,7 @@ class RouteMethods implements RouteInterface
 
         $requestUrl = implode('/', $requestUrl);
         $url = implode('/', $urlChange);
+
         return $requestUrl === $url;
     }
 
@@ -63,7 +66,7 @@ class RouteMethods implements RouteInterface
         if (self::$found) return self::getInstance();
 
         if (
-            $_SERVER['REQUEST_URI'] != '/' && self::checkUrl($url, $_SERVER['REQUEST_URI'])
+            $_SERVER['REQUEST_URI'] != '/' && self::comparisonUrl($url)
             || $_SERVER['REQUEST_URI'] == '/' && $_SERVER['REQUEST_URI'] == $url
         ) {
             self::$controller = $controller;
@@ -95,7 +98,7 @@ class RouteMethods implements RouteInterface
         return self::requestMethod($url, $controller);
     }
 
-    static private function checkUrlAttr(array $urlMy, array $requestUrl): array
+    static private function prepareUrlAttr(array $urlMy, array $requestUrl): void
     {
         $attr = [];
 
@@ -107,7 +110,8 @@ class RouteMethods implements RouteInterface
                 }
             }
         }
-        return $attr;
+
+        self::$attr = $attr;
     }
 
     static public function middleware(string $middleware)
@@ -119,5 +123,10 @@ class RouteMethods implements RouteInterface
         self::$found = false;
 
         return self::getInstance();
+    }
+
+    static public function setFound($found)
+    {
+        self::$found = $found;
     }
 }

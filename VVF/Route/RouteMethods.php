@@ -23,10 +23,18 @@ class RouteMethods implements RouteInterface
         return static::$_instance;
     }
 
-    static public function name(string $name): self
+    static private function replaceAttributesUrl(array $urlExp): array
     {
-        self::$routeNameList[$name] = (self::$url != '/' ? '/' : '') . self::$url;
-        return self::getInstance();
+        $attr = self::$attr;
+
+        return array_map(function ($val) use ($attr) {
+            $valReplace = str_replace(['{', '}'], '', $val);
+            if (key_exists($valReplace, $attr)) {
+                return $attr[$valReplace];
+            }
+
+            return $val;
+        }, $urlExp);
     }
 
     static private function comparisonUrl(string $url): bool
@@ -40,22 +48,20 @@ class RouteMethods implements RouteInterface
         $requestUrl = array_values($requestUrl);
 
         self::prepareUrlAttr($urlExp, $requestUrl);
-        $attr = self::$attr;
 
         //change attr like {id} on found attr
-        $urlChange = array_map(function ($val) use ($attr) {
-            $valReplace = str_replace(['{', '}'], '', $val);
-            if (key_exists($valReplace, $attr)) {
-                return $attr[$valReplace];
-            }
-
-            return $val;
-        }, $urlExp);
+        $urlChange = self::replaceAttributesUrl($urlExp);
 
         $requestUrl = implode('/', $requestUrl);
         $url = implode('/', $urlChange);
 
         return $requestUrl === $url;
+    }
+
+    static private function isFoundRoute(): bool
+    {
+        return $_SERVER['REQUEST_URI'] != '/' && self::comparisonUrl(self::$url)
+            || $_SERVER['REQUEST_URI'] == '/' && $_SERVER['REQUEST_URI'] == self::$url;
     }
 
     static protected function requestMethod(string $url, string $controller): Route
@@ -65,10 +71,7 @@ class RouteMethods implements RouteInterface
         //Already found page
         if (self::$found) return self::getInstance();
 
-        if (
-            $_SERVER['REQUEST_URI'] != '/' && self::comparisonUrl($url)
-            || $_SERVER['REQUEST_URI'] == '/' && $_SERVER['REQUEST_URI'] == $url
-        ) {
+        if (self::isFoundRoute()) {
             self::$controller = $controller;
             self::$found = true;
         }
@@ -76,27 +79,6 @@ class RouteMethods implements RouteInterface
         return self::getInstance();
     }
 
-    static public function post(string $url, string $controller): Route
-    {
-        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            return self::getInstance();
-        }
-
-        self::requestMethod($url, $controller);
-
-        self::$attr = $_POST;
-
-        return self::getInstance();
-    }
-
-    static public function get(string $url, string $controller): Route
-    {
-        if ($_SERVER['REQUEST_METHOD'] != 'GET') {
-            return self::getInstance();
-        }
-
-        return self::requestMethod($url, $controller);
-    }
 
     static private function prepareUrlAttr(array $urlMy, array $requestUrl): void
     {
@@ -114,18 +96,9 @@ class RouteMethods implements RouteInterface
         self::$attr = $attr;
     }
 
-    static public function middleware(string $middleware)
-    {
-        if ('/' . self::$url !== $_SERVER['REQUEST_URI']) return;
 
-        self::$controller = '';
-        self::$attr = [];
-        self::$found = false;
 
-        return self::getInstance();
-    }
-
-    static public function setFound($found)
+    static public function setFound($found): void
     {
         self::$found = $found;
     }

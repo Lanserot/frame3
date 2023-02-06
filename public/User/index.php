@@ -1,5 +1,6 @@
 @title=Пользователь@
-<?php 
+<?php
+
 use VVF\Route\Route;
 ?>
 <section style="background-color: #eee;">
@@ -8,8 +9,8 @@ use VVF\Route\Route;
       <div class="col">
         <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="<?= Route::route('main')?>">Home</a></li>
-            <li class="breadcrumb-item"><a href="<?= Route::route('users.index')?>">Users</a></li>
+            <li class="breadcrumb-item"><a href="<?= Route::route('main') ?>">Home</a></li>
+            <li class="breadcrumb-item"><a href="<?= Route::route('users.index') ?>">users</a></li>
             <li class="breadcrumb-item active" aria-current="page">User Profile</li>
           </ol>
         </nav>
@@ -20,8 +21,7 @@ use VVF\Route\Route;
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
             <h5 class="my-3">John Smith</h5>
             <p class="text-muted mb-1">Full Stack Developer</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
@@ -61,7 +61,7 @@ use VVF\Route\Route;
       <div class="col-lg-8">
         <div class="card mb-4">
           <div class="card-body">
-          <div class="row">
+            <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Id</p>
               </div>
@@ -88,7 +88,6 @@ use VVF\Route\Route;
               </div>
             </div>
             <hr>
-          
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Mobile</p>
@@ -114,30 +113,31 @@ use VVF\Route\Route;
               <div class="card-body">
                 <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
                 </p>
-                <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                    aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+                <?php
+                foreach ($groups as $group) {
+                  $rand = rand(10, 90); ?>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Group <?= $group['title'] ?></p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: <?= $rand ?>%" aria-valuenow="<?= $rand ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                <? }
+                ?>
+
                 <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
                 <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
                 <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
                 <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
                 <div class="progress rounded mb-2" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -149,28 +149,23 @@ use VVF\Route\Route;
                 </p>
                 <p class="mb-1" style="font-size: .77rem;">Web Design</p>
                 <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
                 <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
                 <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
                 <div class="progress rounded" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
                 <div class="progress rounded mb-2" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>

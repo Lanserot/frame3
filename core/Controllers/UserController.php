@@ -12,18 +12,21 @@ class UserController extends Controller
 {
     public function show(): void
     {
-        $user = new UserModel();
-        $result = $user->find($this->request['id']);
-        if (!$result) {
+        $users = new UserModel();
+        $user = $users->find($this->request['id']);
+        if (!$user) {
             $this->redirect(Route::route('users.index'));
         }
-        $this->render('User.index', ['user' => $result]);
+
+        $groups = $user->belongsTo('groups');
+
+        $this->render('User.index', ['user' => $user, 'groups' => $groups]);
     }
 
     public function index(): void
     {
         $users = new Model();
-        $users = $users->table('Users');
+        $users = $users->table('users');
         $query = $users->where('id', '>=', 2)->where('id', '<=', 6)->get();
         $this->render('User.list', ['users' => $query]);
     }
@@ -39,7 +42,7 @@ class UserController extends Controller
 
         $pass = md5($this->request['pass']);
         $login = $this->request['login'];
-        $user = $users->db->query("SELECT * FROM `users` WHERE `password` = '$pass' AND `login` = '$login' LIMIT 1;")->fetch(\PDO::FETCH_OBJ);
+        $user = $users->db->query("SELECT * FROM users WHERE password = '$pass' AND login = '$login' LIMIT 1;")->fetch(\PDO::FETCH_OBJ);
 
         if ($user) {
             $this->redirect(Route::route('main'));

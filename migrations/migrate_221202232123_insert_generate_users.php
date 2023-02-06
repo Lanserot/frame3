@@ -13,7 +13,7 @@ class migrate_221202232123_insert_generate_users extends MigrateMethod
                 'password' => md5('pass'),
                 'login' => '|randString|',
                 'mail' => '|randString|@mail.ru',
-                'role' => rand(0, 3)
+                'role' => '|randInt|'
             ]
         );
     }

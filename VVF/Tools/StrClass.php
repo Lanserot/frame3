@@ -16,6 +16,9 @@ class StrClass
                 }
                 $data[$i] = str_replace('|randString|', $string, $data[$i]);
             }
+            if (strripos($data[$i], '|randInt|') !== false) {
+                $data[$i] = str_replace('|randInt|', rand(1, 15), $data[$i]);
+            }
         }
 
         return $data;

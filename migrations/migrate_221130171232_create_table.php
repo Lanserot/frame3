@@ -8,11 +8,11 @@ class migrate_221130171232_create_table extends MigrateMethod
 {
     public function up(): void
     {
-        $this->createTable('Users');
+        $this->createTable('users');
     }
 
     public function down(): void
     {
-        $this->deleteTable('Users');
+        $this->deleteTable('users');
     }
 }

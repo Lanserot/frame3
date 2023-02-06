@@ -58,7 +58,7 @@ class Model
     public function get()
     {
         $wherePrepare = $this->getWhere();
-        $sql = 'SELECT * FROM `' . $this->table . '` WHERE ' . $wherePrepare['sql'];
+        $sql = 'SELECT * FROM `' . $this->table . '` ' . $wherePrepare['sql'];
         $stmt = $this->db->prepare($sql, [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
         $stmt->execute($wherePrepare['prepare']);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -71,6 +71,8 @@ class Model
         foreach ($this->where as $num => $where) {
             if ($num) {
                 $wherePrepare['sql'] .= ' AND ';
+            }else{
+                $wherePrepare['sql'] .= ' WHERE ';
             }
 
             $wherePrepare['sql'] .= $where['query'];

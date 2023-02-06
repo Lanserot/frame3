@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $users = new Model();
         $users = $users->table('Users');
-        $query = $users->where(['id', '>=', '2'])->where(['id', '<=', '6'])->get();
+        $query = $users->where('id', '>=', 2)->where('id', '<=', 6)->get();
         $this->render('User.list', ['users' => $query]);
     }
 

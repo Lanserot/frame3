@@ -33,29 +33,23 @@ class Model
         return $this;
     }
 
-    public function where(array $where): self
+    public function where(string $column, string $operator, string|int|bool $value): self
     {
-        $where = array_values($where);
-        $name = $where[0] . '_' . count($this->where);
-
-        if (count($where) == 2) {
-            $this->where[] = [
-                'query' => "`" . $where[0] . "` = :" . $name . "",
-                'prep' => [$name => $where[1]]
-            ];
-        } elseif (count($where) == 3) {
-            $this->where[] = [
-                'query' => "`" . $where[0] . "` " . $where[1] . " :" . $name . "",
-                'prep' => ["$name" => $where[2]]
-            ];
-        } else {
-            throw new ErrorHandler('Incorrect "where" ' . implode(' - ', $where));
+        if (!in_array($operator, ['=', '<', '>', '<=', '>=', '<>'])) {
+            throw new ErrorHandler('Invalid operator');
         }
+
+        $name = $column . '_' . count($this->where);
+
+        $this->where[] = [
+            'query' => "`$column` $operator :$name",
+            'prep' => ["$name" => $value]
+        ];
 
         return $this;
     }
 
-    public function get()
+    public function get(): array
     {
         $wherePrepare = $this->getWhere();
         $sql = 'SELECT * FROM `' . $this->table . '` ' . $wherePrepare['sql'];

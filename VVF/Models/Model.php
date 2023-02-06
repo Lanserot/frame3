@@ -70,9 +70,8 @@ class Model
             }
 
             $wherePrepare['sql'] .= $where['query'];
-            array_push($wherePrepare['prepare'], $where['prep']);
+            $wherePrepare['prepare'] = array_merge($wherePrepare['prepare'], $where['prep']);
         }
-        $wherePrepare['prepare'] = array_merge(...$wherePrepare['prepare']);
         return $wherePrepare;
     }
 
@@ -81,7 +80,7 @@ class Model
         if (!in_array($order, ['DESC', 'ASC'])) {
             $order = 'DESC';
         }
-        if ($limit < 1) {
+        if ($limit < 1 || $limit < 0) {
             $limit = 10;
         }
         $sql = "SELECT * FROM `" . $this->table . "` ORDER BY id $order limit $limit";

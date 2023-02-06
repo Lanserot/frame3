@@ -13,7 +13,7 @@
 -Dinamyc page elements like laravel
 -Route like laravel (Post, Get - methods, Started to implement "Middleware, Resourses")
 -Controllers (redirect, render)
--Models (find, getLimit)
+-Models (find, getLimit, where(['id', '>=', 3]))
 -Migration with versions (rollback\migrate), random string data
 -Page factory
 -Error handler like laravel

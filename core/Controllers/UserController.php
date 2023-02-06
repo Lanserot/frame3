@@ -5,7 +5,8 @@ namespace Core\Controllers;
 use VVF\Controllers\Controller;
 use Core\Models\UserModel;
 use VVF\Route\Route;
-use Core\Tools\DebugTool;
+use VVF\Models\Model;
+use VVF\Tools\DebugTool;
 
 class UserController extends Controller
 {
@@ -21,9 +22,10 @@ class UserController extends Controller
 
     public function index(): void
     {
-        $users = new UserModel();
-        $users = $users->getLimit(10, 'DESC');
-        $this->render('User.list', ['users' => $users]);
+        $users = new Model();
+        $users = $users->table('Users');
+        $query = $users->where(['id', '>=', '2'])->where(['id', '<=', '6'])->get();
+        $this->render('User.list', ['users' => $query]);
     }
 
     public function login(): void
@@ -39,7 +41,7 @@ class UserController extends Controller
         $login = $this->request['login'];
         $user = $users->db->query("SELECT * FROM `users` WHERE `password` = '$pass' AND `login` = '$login' LIMIT 1;")->fetch(\PDO::FETCH_OBJ);
 
-        if($user){
+        if ($user) {
             $this->redirect(Route::route('main'));
         }
 

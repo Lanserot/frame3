@@ -3,6 +3,7 @@
 namespace VVF\Route;
 
 use VVF\Interfaces\RouteInterface;
+use VVF\Tools\DebugTool;
 
 class RouteMethods implements RouteInterface
 {
@@ -41,7 +42,7 @@ class RouteMethods implements RouteInterface
     {
         $urlExp = explode('/', $url);
 
-        $requestUrl = array_filter(explode('/', $_SERVER['REQUEST_URI']), function ($k) {
+        $requestUrl = array_filter(explode('/', $_SERVER['REDIRECT_URL']), function ($k) {
             return !empty($k);
         });
 
@@ -60,8 +61,9 @@ class RouteMethods implements RouteInterface
 
     static private function isFoundRoute(): bool
     {
-        return $_SERVER['REQUEST_URI'] != '/' && self::comparisonUrl(self::$url)
-            || $_SERVER['REQUEST_URI'] == '/' && $_SERVER['REQUEST_URI'] == self::$url;
+        $url = $_SERVER['REDIRECT_URL'] ?? $_SERVER['REQUEST_URI'];
+        return $url != '/' && self::comparisonUrl(self::$url)
+            || $url == '/' && $url  == self::$url;
     }
 
     static protected function requestMethod(string $url, string $controller): Route

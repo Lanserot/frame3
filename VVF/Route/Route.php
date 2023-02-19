@@ -5,6 +5,7 @@ namespace VVF\Route;
 use VVF\Controllers\ControllerInterface;
 use VVF\Interfaces\RouteInterface;
 use VVF\ErrorHandler\ErrorHandler;
+use VVF\Tools\DebugTool;
 
 class Route extends RouteMethods implements RouteInterface
 {
@@ -41,6 +42,7 @@ class Route extends RouteMethods implements RouteInterface
 
     static public function post(string $url, string $controller): Route
     {
+        
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return self::getInstance();
         }
@@ -54,7 +56,7 @@ class Route extends RouteMethods implements RouteInterface
 
     static public function middleware(string $middleware)
     {
-        if ('/' . self::$url !== $_SERVER['REQUEST_URI']) return;
+        if ('/' . self::$url !== $_SERVER['REDIRECT_URL']) return;
 
         self::$controller = '';
         self::$attr = [];

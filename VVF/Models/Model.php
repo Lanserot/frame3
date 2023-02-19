@@ -5,6 +5,7 @@ namespace VVF\Models;
 use Migrations\migrate\core\traits\DbConnectTrait;
 use PDO;
 use VVF\ErrorHandler\ErrorHandler;
+use VVF\Tools\DebugTool;
 
 class Model
 {
@@ -12,6 +13,7 @@ class Model
 
     protected string $table = '';
     private array $where = [];
+    private array $select = ['*'];
 
     public function __construct()
     {
@@ -73,7 +75,8 @@ class Model
     public function get(): array
     {
         $wherePrepare = $this->getWhere();
-        $sql = 'SELECT * FROM ' . $this->getTable() . ' ' . $wherePrepare['sql'];
+        $select = implode(', ', $this->select);
+        $sql = 'SELECT '.$select.' FROM ' . $this->getTable() . ' ' . $wherePrepare['sql'];
         $stmt = $this->db->prepare($sql, [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
         $stmt->execute($wherePrepare['prepare']);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -95,7 +98,16 @@ class Model
         }
         return $wherePrepare;
     }
+    public function select(array $select = []): self
+    {
+        if (empty($select)) {
+            $select = ['*'];
+        }
 
+        $this->select = $select;
+
+        return $this;
+    }
     public function getLimit(int $limit = 10, string $order = 'DESC'): bool|array
     {
         if (!in_array($order, ['DESC', 'ASC'])) {

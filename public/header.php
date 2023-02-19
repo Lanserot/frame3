@@ -27,18 +27,13 @@ use VVF\Route\Route;
           <a class="nav-link" href="<?= Route::route('main'); ?>">Главная<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= Route::route('users.index'); ?>">Пользователи</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="<?= Route::route('admin'); ?>">Main</a>
-            <a class="dropdown-item" href="/users/42">User 42</a>
-            <a class="dropdown-item" href="/users/10">User 10</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="<?= Route::route('admin'); ?>">Something else here</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -46,14 +41,11 @@ use VVF\Route\Route;
             О фреймворке
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="<?= Route::route('documentation'); ?>">Документация</a>
-            <a class="dropdown-item" href="<?= Route::route('install'); ?>">Установка</a>
-            <a class="dropdown-item" href="<?= Route::route('technologies'); ?>">Технологии</a>
+
           </div>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="<?= Route::route('login'); ?>">Вход</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">

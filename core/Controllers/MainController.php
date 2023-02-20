@@ -40,19 +40,20 @@ class MainController extends Controller
     private function getAppTopAndSave(): array
     {
         $categories = json_decode($this->getCategoriesSite(), true);
-        
-        if($categories['status_code'] != 200){
+
+        if ($categories['status_code'] != 200) {
             return $categories;
         }
 
-        $categoriesPrepare = ParserCategories::prepareCategories($categories);
+        $categoriesPrepare = ParserCategories::prepareCategories($categories['data']);
         $this->appTop->saveInDbCategories($categoriesPrepare, $this->date);
 
         if (empty($categoriesPrepare)) {
-            $json['status'] = false;
+            $json['status_code'] = 404;
+            return $json;
         }
 
-        $json['status'] = true;
+        $json['status_code'] = 200;
         $json['categories'] = $categoriesPrepare;
 
         return $json;

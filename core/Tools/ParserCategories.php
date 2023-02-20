@@ -6,11 +6,11 @@ class ParserCategories
 {
     static public function prepareCategories(array $content): array
     {
-        $categories = array_keys($content['data']);
+        $categories = array_keys($content);
         $categoriesPrepare = [];
         foreach ($categories as $category) {
             $max = [];
-            foreach ($content['data'][$category] as $preCategory) {
+            foreach ($content[$category] as $preCategory) {
                 $max = array_merge($max, array_values($preCategory));
             }
             asort($max);
@@ -27,8 +27,10 @@ class ParserCategories
     {
         $convert = [];
         foreach ($top as $elem) {
-            $convert[$elem['category']] = $elem['position'];
+            $convert['categories'][$elem['category']] = $elem['position'];
         }
+
+        $convert['status_code'] = 200;
         return $convert;
     }
 }
